@@ -39,18 +39,22 @@ def fetch_nasa_epic(photos_count: int = 10):
     request_params = {
         'api_key': NASA_API_KEY,
     }
-    nasa_response = requests.get(f"{EPIC_API_METHOD_URL}/images", params=request_params)
+    nasa_response = requests.get(f"{EPIC_API_METHOD_URL}/images",
+                                 params=request_params)
     nasa_response.raise_for_status()
     print(photos_count)
     print(len(nasa_response.json()))
     photo_cards = nasa_response.json()[:photos_count]
     for i, card in enumerate(photo_cards):
         photo_date = datetime.strptime(card['date'], "%Y-%m-%d %H:%M:%S")
-        photo_url = f"{EPIC_ARCHIVE_URL}/{photo_date.year}/{photo_date.strftime('%m')}"\
-                    f"/{photo_date.strftime('%d')}/png/"\
-                    f"{get_file_extension(card['image'])[0]}.png".strip()
+        photo_url = f"{EPIC_ARCHIVE_URL}/{photo_date.year}"\
+                    f"/{photo_date.strftime('%m')}"\
+                    f"/{photo_date.strftime('%d')}/png"\
+                    f"/{get_file_extension(card['image'])[0]}.png".strip()
         print(photo_url)
-        download_image(photo_url, f"{IMAGES_PATH}/nasa_epic_{i}.png", params=request_params)
+        download_image(photo_url,
+                       f"{IMAGES_PATH}/nasa_epic_{i}.png",
+                       params=request_params)
 
 
 if __name__ == "__main__":
