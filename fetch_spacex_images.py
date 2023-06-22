@@ -6,7 +6,7 @@ from functions import download_image
 
 load_dotenv()
 IMAGES_PATH = os.getenv("IMAGES_PATH")
-API_METHOD_URL = 'https://api.spacexdata.com/v5/launches'
+SPACEX_API_METHOD_URL = 'https://api.spacexdata.com/v5/launches'
 
 
 def main():
@@ -35,7 +35,7 @@ def get_last_flight_id() -> str:
 
     :return: None
     """
-    spacex_response = requests.get(API_METHOD_URL)
+    spacex_response = requests.get(SPACEX_API_METHOD_URL)
     spacex_response.raise_for_status()
     flights = spacex_response.json()
     last_flight = None
@@ -55,7 +55,7 @@ def fetch_spacex_launch_photos(launch_id: str):
     :param launch_id:  ID of the SpaceX launch
     :return: None
     """
-    spacex_response = requests.get(f"{API_METHOD_URL}/{launch_id}")
+    spacex_response = requests.get(f"{SPACEX_API_METHOD_URL}/{launch_id}")
     spacex_response.raise_for_status()
     flight_data = spacex_response.json()
     photo_links = flight_data['links']['flickr']['original']
@@ -67,4 +67,4 @@ def fetch_spacex_launch_photos(launch_id: str):
 
 
 if __name__ == "__main__":
-    fetch_spacex_launch_photos('1')
+    main()
