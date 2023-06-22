@@ -3,7 +3,8 @@ import time
 from random import shuffle
 from argparse import ArgumentParser
 from dotenv import load_dotenv
-from space_bot import publish_photo
+from space_bot_publish import publish_photo
+from img_functions import collect_photo_filenames
 
 load_dotenv()
 IMAGES_PATH = os.getenv("IMAGES_PATH")
@@ -34,24 +35,6 @@ def main():
             publish_photo(f"{IMAGES_PATH}/{image}")
             time.sleep(posting_delay)
         shuffle(images)
-
-
-def collect_photo_filenames(randomize: bool = False) -> list:
-    """
-
-    Collects the filenames of all the images
-    present in the directory specified by the
-    'IMAGES_PATH' variable and returns them as a list
-
-    :param randomize: whether randomize images sequence or not
-    :return: filenames of all the images present in the 'IMAGES_PATH' directory
-    """
-    images = None
-    for _, _, files_list in os.walk(IMAGES_PATH):
-        images = files_list
-    if randomize:
-        shuffle(images)
-    return images
 
 
 if __name__ == "__main__":

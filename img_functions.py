@@ -1,4 +1,5 @@
 import os
+from random import shuffle
 from urllib.parse import urlparse, unquote
 from datetime import datetime
 import requests
@@ -44,6 +45,26 @@ def get_file_extension(image_url: str) -> tuple[str, str]:
     filename = os.path.split(path_only)[1]
     extension = os.path.splitext(path_only)[1]
     return filename, extension
+
+
+def collect_photo_filenames(randomize: bool = False) -> list:
+    """
+
+    Collects the filenames of all the images
+    present in the directory specified by the
+    'IMAGES_PATH' variable and returns them as a list
+
+    :param randomize: whether randomize images sequence or not
+    :return: filenames of all the images present in the 'IMAGES_PATH' directory
+    """
+    images = None
+    for _, _, files_list in os.walk(IMAGES_PATH):
+        images = files_list
+    if not images:
+        raise FileNotFoundError("Your IMAGES_PATH folder must contain at least one photo!")
+    if randomize:
+        shuffle(images)
+    return images
 
 
 if __name__ == "__main__":
