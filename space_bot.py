@@ -3,14 +3,14 @@ import telebot
 from dotenv import load_dotenv
 
 load_dotenv()
-TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
-TG_BOT_NAME = os.getenv("BOT_NAME")
 
 
 def publish_photo(path: str):
-    bot = telebot.TeleBot(TG_BOT_TOKEN)
+    tg_bot_token = os.getenv("TG_BOT_TOKEN")
+    tg_channel_name = os.getenv("TG_CHANNEL_NAME")
+    bot = telebot.TeleBot(tg_bot_token)
     with open(path, "rb") as file:
-        bot.send_photo(TG_BOT_NAME, file)
+        bot.send_photo(tg_channel_name, file)
 
 
 if __name__ == "__main__":

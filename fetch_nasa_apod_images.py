@@ -7,7 +7,7 @@ import os
 import requests
 from argparse import ArgumentParser
 from dotenv import load_dotenv
-from functions import download_image
+from img_functions import download_image
 
 load_dotenv()
 IMAGES_PATH = os.getenv("IMAGES_PATH")

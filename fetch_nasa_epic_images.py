@@ -8,7 +8,7 @@ import requests
 from datetime import datetime
 from argparse import ArgumentParser
 from dotenv import load_dotenv
-from functions import download_image, get_file_extension
+from img_functions import download_image, get_file_extension
 
 load_dotenv()
 IMAGES_PATH = os.getenv("IMAGES_PATH")
@@ -36,6 +36,14 @@ def main():
 
 
 def fetch_nasa_epic(photos_count: int = 10):
+    """
+
+    Downloads a specified number of EPIC photos from NASA
+    and saves them to a local directory.
+
+    :param photos_count: the number of photos to download
+    :return: None
+    """
     request_params = {
         'api_key': NASA_API_KEY,
     }
