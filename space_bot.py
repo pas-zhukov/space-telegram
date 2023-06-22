@@ -7,5 +7,5 @@ load_dotenv()
 API_TOKEN = os.getenv("TG_BOT_TOKEN")
 
 bot = telebot.TeleBot(API_TOKEN)
-
-bot.send_message('@spacephotocards', 'HELL YEAH')
+with open("images/spaceX_0.jpg", "rb") as file:
+    bot.send_photo('@spacephotocards', file)
