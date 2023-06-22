@@ -23,16 +23,25 @@ def main():
         '-c',
         '--count',
         help="Count of APOD photos to download. 10 by default.",
-        default=10
+        default=10,
     )
     args = arg_parser.parse_args()
-    photos_count = args.count
-
-    fetch_nasa_apod(photos_count=photos_count)
+    try:
+        photos_count = int(args.count)
+        fetch_nasa_apod(photos_count=photos_count)
+    except ValueError:
+        print("Count parameter must be an integer!")
 
 
 def fetch_nasa_apod(photos_count: int = 10):
+    """
 
+    Downloads a specified number of Astronomy Picture of the Day (APOD) photos
+    from NASA's API and save them to the local machine.
+
+    :param photos_count: number of APOD photos to download (default is 10)
+    :return: None
+    """
     request_params = {
         'api_key': NASA_API_KEY,
         'count': photos_count
@@ -42,3 +51,7 @@ def fetch_nasa_apod(photos_count: int = 10):
     apod_posts = nasa_response.json()
     for i, post in enumerate(apod_posts):
         download_image(post['url'], f"{IMAGES_PATH}/nasa_apod_{i}.jpg")
+
+
+if __name__ == "__main__":
+    main()
