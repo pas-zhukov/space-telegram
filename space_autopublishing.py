@@ -3,7 +3,7 @@ from random import shuffle
 from argparse import ArgumentParser
 from space_bot_publish import publish_photo
 from img_functions import collect_photo_filenames
-import globals
+import global_vars_env
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
     images = collect_photo_filenames()
     while True:
         for image in images:
-            publish_photo(f"{globals.IMAGES_PATH}/{image}")
+            publish_photo(f"{global_vars.IMAGES_PATH}/{image}")
             time.sleep(posting_delay)
         shuffle(images)
 

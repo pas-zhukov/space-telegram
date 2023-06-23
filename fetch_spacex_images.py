@@ -1,7 +1,7 @@
 import requests
 from argparse import ArgumentParser
 from img_functions import download_image
-import globals
+import global_vars_env
 
 
 def main():
@@ -30,7 +30,7 @@ def get_last_flight_id() -> str:
 
     :return: None
     """
-    spacex_response = requests.get(globals.SPACEX_API_METHOD_URL)
+    spacex_response = requests.get(global_vars.SPACEX_API_METHOD_URL)
     spacex_response.raise_for_status()
     flights = spacex_response.json()
     last_flight = None
@@ -50,13 +50,13 @@ def fetch_spacex_launch_photos(launch_id: str):
     :param launch_id:  ID of the SpaceX launch
     :return: None
     """
-    spacex_response = requests.get(f"{globals.SPACEX_API_METHOD_URL}/{launch_id}")
+    spacex_response = requests.get(f"{global_vars.SPACEX_API_METHOD_URL}/{launch_id}")
     spacex_response.raise_for_status()
     flight_data = spacex_response.json()
     photo_links = flight_data['links']['flickr']['original']
     if flight_data:
         for i, link in enumerate(photo_links):
-            download_image(link, f"{globals.IMAGES_PATH}/spaceX_{i}.jpg")
+            download_image(link, f"{global_vars.IMAGES_PATH}/spaceX_{i}.jpg")
     else:
         raise ValueError("No photos were taken for this launch!")
 

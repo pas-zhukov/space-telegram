@@ -3,11 +3,11 @@ from random import shuffle
 from urllib.parse import urlparse, unquote
 from datetime import datetime
 import requests
-import globals
+import global_vars_env
 
 
 def download_image(image_url: str,
-                   path: str = f'{globals.IMAGES_PATH}/image_{datetime.now()}.jpg',
+                   path: str = f'{global_vars.IMAGES_PATH}/image_{datetime.now()}.jpg',
                    params: dict = None):
     """
 
@@ -53,7 +53,7 @@ def collect_photo_filenames(randomize: bool = False) -> list:
     :return: filenames of all the images present in the 'IMAGES_PATH' directory
     """
     images = None
-    for _, _, files_list in os.walk(globals.IMAGES_PATH):
+    for _, _, files_list in os.walk(global_vars.IMAGES_PATH):
         images = files_list
     if not images:
         raise FileNotFoundError("Your IMAGES_PATH folder must contain at least one photo!")
