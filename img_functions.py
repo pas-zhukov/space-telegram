@@ -53,8 +53,8 @@ def collect_photo_filenames(randomize: bool = False) -> list:
     :return: filenames of all the images present in the 'IMAGES_PATH' directory
     """
     images = None
-    for _, _, files_list in os.walk(global_vars_env.IMAGES_PATH):
-        images = files_list
+    for _, _, file_names in os.walk(global_vars_env.IMAGES_PATH):
+        images = file_names
     if not images:
         raise FileNotFoundError("Your IMAGES_PATH folder must contain at least one photo!")
     if randomize:
