@@ -58,7 +58,16 @@ def fetch_spacex_launch_photos(launch_id: str):
         for i, link in enumerate(photo_links):
             download_image(link, f"{global_vars_env.IMAGES_PATH}/spaceX_{i}.jpg")
     else:
-        raise ValueError("No photos were taken for this launch!")
+        raise PhotosMissingError
+
+
+class PhotosMissingError(ValueError):
+    """
+
+    Exception raised when no photos were taken for a SpaceX launch.
+    """
+    def __init__(self, message="No photos were taken for this launch!"):
+        super().__init__(message)
 
 
 if __name__ == "__main__":
