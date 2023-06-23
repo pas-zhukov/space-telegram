@@ -52,9 +52,9 @@ def fetch_spacex_launch_photos(launch_id: str):
     """
     spacex_response = requests.get(f"{global_vars_env.SPACEX_API_METHOD_URL}/{launch_id}")
     spacex_response.raise_for_status()
-    flight_data = spacex_response.json()
-    photo_links = flight_data['links']['flickr']['original']
-    if flight_data:
+    flight = spacex_response.json()
+    photo_links = flight['links']['flickr']['original']
+    if flight:
         for i, link in enumerate(photo_links):
             download_image(link, f"{global_vars_env.IMAGES_PATH}/spaceX_{i}.jpg")
     else:
