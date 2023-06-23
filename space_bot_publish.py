@@ -23,11 +23,9 @@ def main():
 
 
 def publish_photo(path: str):
-    tg_bot_token = os.getenv("TG_BOT_TOKEN")
-    tg_channel_name = os.getenv("TG_CHANNEL_NAME")
-    bot = telebot.TeleBot(tg_bot_token)
+    bot = telebot.TeleBot(global_vars_env.TG_BOT_TOKEN)
     with open(path, "rb") as file:
-        bot.send_photo(tg_channel_name, file)
+        bot.send_photo(global_vars_env.TG_CHANNEL_NAME, file)
 
 
 if __name__ == "__main__":

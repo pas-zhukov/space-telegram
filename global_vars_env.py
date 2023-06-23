@@ -13,6 +13,10 @@ pathlib.Path(f"{IMAGES_PATH}/").mkdir(parents=True, exist_ok=True)
 NASA_API_KEY = os.getenv("NASA_API_KEY")
 
 
+TG_BOT_TOKEN = os.getenv("TG_BOT_TOKEN")
+TG_CHANNEL_NAME = os.getenv("TG_CHANNEL_NAME")
+
+
 SPACEX_API_METHOD_URL = 'https://api.spacexdata.com/v5/launches'
 EPIC_API_METHOD_URL = "https://api.nasa.gov/EPIC/api/natural"
 EPIC_ARCHIVE_URL = 'https://api.nasa.gov/EPIC/archive/natural'
