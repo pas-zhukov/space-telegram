@@ -1,13 +1,9 @@
-import os
 import time
 from random import shuffle
 from argparse import ArgumentParser
-from dotenv import load_dotenv
 from space_bot_publish import publish_photo
 from img_functions import collect_photo_filenames
-
-load_dotenv()
-IMAGES_PATH = os.getenv("IMAGES_PATH")
+import globals
 
 
 def main():
@@ -32,7 +28,7 @@ def main():
     images = collect_photo_filenames()
     while True:
         for image in images:
-            publish_photo(f"{IMAGES_PATH}/{image}")
+            publish_photo(f"{globals.IMAGES_PATH}/{image}")
             time.sleep(posting_delay)
         shuffle(images)
 

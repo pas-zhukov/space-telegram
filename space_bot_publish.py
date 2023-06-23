@@ -2,11 +2,8 @@ import os
 import telebot
 import random
 from argparse import ArgumentParser
-from dotenv import load_dotenv
 from img_functions import collect_photo_filenames
-
-load_dotenv()
-IMAGES_PATH = os.getenv("IMAGES_PATH")
+import globals
 
 
 def main():
@@ -17,7 +14,7 @@ def main():
         '-p',
         '--image_path',
         help="Path to an image to publish. Picks random photo by default.",
-        default=f"{IMAGES_PATH}/{random.choice(collect_photo_filenames())}"
+        default=f"{globals.IMAGES_PATH}/{random.choice(collect_photo_filenames())}"
     )
     args = arg_parser.parse_args()
     image_path = args.image_path

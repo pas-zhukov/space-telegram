@@ -3,16 +3,11 @@ from random import shuffle
 from urllib.parse import urlparse, unquote
 from datetime import datetime
 import requests
-from dotenv import load_dotenv
-import pathlib
-
-load_dotenv()
-IMAGES_PATH = os.getenv("IMAGES_PATH")
-pathlib.Path(f"{IMAGES_PATH}/").mkdir(parents=True, exist_ok=True)
+import globals
 
 
 def download_image(image_url: str,
-                   path: str = f'{IMAGES_PATH}/image_{datetime.now()}.jpg',
+                   path: str = f'{globals.IMAGES_PATH}/image_{datetime.now()}.jpg',
                    params: dict = None):
     """
 
@@ -58,7 +53,7 @@ def collect_photo_filenames(randomize: bool = False) -> list:
     :return: filenames of all the images present in the 'IMAGES_PATH' directory
     """
     images = None
-    for _, _, files_list in os.walk(IMAGES_PATH):
+    for _, _, files_list in os.walk(globals.IMAGES_PATH):
         images = files_list
     if not images:
         raise FileNotFoundError("Your IMAGES_PATH folder must contain at least one photo!")

@@ -3,18 +3,11 @@
 EPIC is the Earth Polychromatic Imaging Camera (NASA).
 """
 
-import os
 import requests
 from datetime import datetime
 from argparse import ArgumentParser
-from dotenv import load_dotenv
 from img_functions import download_image, get_file_extension
-
-load_dotenv()
-IMAGES_PATH = os.getenv("IMAGES_PATH")
-EPIC_API_METHOD_URL = "https://api.nasa.gov/EPIC/api/natural"
-EPIC_ARCHIVE_URL = 'https://api.nasa.gov/EPIC/archive/natural'
-NASA_API_KEY = os.getenv("NASA_API_KEY")
+import globals
 
 
 def main():
@@ -45,9 +38,9 @@ def fetch_nasa_epic(photos_count: int = 10):
     :return: None
     """
     request_params = {
-        'api_key': NASA_API_KEY,
+        'api_key': globals.NASA_API_KEY,
     }
-    nasa_response = requests.get(f"{EPIC_API_METHOD_URL}/images",
+    nasa_response = requests.get(f"{globals.EPIC_API_METHOD_URL}/images",
                                  params=request_params)
     nasa_response.raise_for_status()
     print(photos_count)
@@ -55,13 +48,13 @@ def fetch_nasa_epic(photos_count: int = 10):
     photo_cards = nasa_response.json()[:photos_count]
     for i, card in enumerate(photo_cards):
         photo_date = datetime.strptime(card['date'], "%Y-%m-%d %H:%M:%S")
-        photo_url = f"{EPIC_ARCHIVE_URL}/{photo_date.year}"\
+        photo_url = f"{globals.EPIC_ARCHIVE_URL}/{photo_date.year}"\
                     f"/{photo_date.strftime('%m')}"\
                     f"/{photo_date.strftime('%d')}/png"\
                     f"/{get_file_extension(card['image'])[0]}.png".strip()
         print(photo_url)
         download_image(photo_url,
-                       f"{IMAGES_PATH}/nasa_epic_{i}.png",
+                       f"{globals.IMAGES_PATH}/nasa_epic_{i}.png",
                        params=request_params)
 
 
