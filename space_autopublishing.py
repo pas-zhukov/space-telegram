@@ -28,7 +28,7 @@ def main():
     images = collect_photo_filenames()
     while True:
         for image in images:
-            publish_photo(f"{global_vars.IMAGES_PATH}/{image}")
+            publish_photo(f"{global_vars_env.IMAGES_PATH}/{image}")
             time.sleep(posting_delay)
         shuffle(images)
 

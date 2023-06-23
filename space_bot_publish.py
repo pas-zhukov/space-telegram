@@ -14,7 +14,7 @@ def main():
         '-p',
         '--image_path',
         help="Path to an image to publish. Picks random photo by default.",
-        default=f"{global_vars.IMAGES_PATH}/{random.choice(collect_photo_filenames())}"
+        default=f"{global_vars_env.IMAGES_PATH}/{random.choice(collect_photo_filenames())}"
     )
     args = arg_parser.parse_args()
     image_path = args.image_path
