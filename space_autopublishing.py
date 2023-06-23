@@ -14,16 +14,11 @@ def main():
         '-d',
         '--delay',
         help="Frequency of posting images in hours. 4 hours by default.",
-        default=4
+        default=4,
+        type=float
     )
     args = arg_parser.parse_args()
-    try:
-        posting_delay = int(args.delay) * 3600
-    except ValueError:
-        try:
-            posting_delay = float(args.delay) * 3600
-        except ValueError:
-            raise ValueError("Delay parameter must be an integer or float!")
+    posting_delay = args.delay * 3600
 
     images = collect_photo_filenames()
     while True:

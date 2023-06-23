@@ -18,14 +18,12 @@ def main():
         '-c',
         '--count',
         help="Count of EPIC photos to download. 10 by default.",
-        default=10
+        default=10,
+        type=int
     )
     args = arg_parser.parse_args()
-    try:
-        photos_count = int(args.count)
-        fetch_nasa_epic(photos_count=photos_count)
-    except ValueError:
-        print("Count parameter must be an integer!")
+    photos_count = args.count
+    fetch_nasa_epic(photos_count=photos_count)
 
 
 def fetch_nasa_epic(photos_count: int = 10):
