@@ -61,7 +61,3 @@ def collect_photo_filenames(randomize: bool = False) -> list:
         shuffle(images)
     return images
 
-
-if __name__ == "__main__":
-    print(help(download_image))
-    print(help(get_file_extension))
