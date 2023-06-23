@@ -42,12 +42,12 @@ def fetch_nasa_epic(photos_count: int = 10):
                                  params=request_params)
     nasa_response.raise_for_status()
     photo_cards = nasa_response.json()[:photos_count]
-    for i, card in enumerate(photo_cards):
-        photo_date = datetime.strptime(card['date'], "%Y-%m-%d %H:%M:%S")
+    for i, photo_card in enumerate(photo_cards):
+        photo_date = datetime.strptime(photo_card['date'], "%Y-%m-%d %H:%M:%S")
         photo_url = f"{global_vars_env.EPIC_ARCHIVE_URL}/{photo_date.year}"\
                     f"/{photo_date.strftime('%m')}"\
                     f"/{photo_date.strftime('%d')}/png"\
-                    f"/{get_file_extension(card['image'])[0]}.png".strip()
+                    f"/{get_file_extension(photo_card['image'])[0]}.png".strip()
         download_image(photo_url,
                        f"{global_vars_env.IMAGES_PATH}/nasa_epic_{i}.png",
                        params=request_params)
