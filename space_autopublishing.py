@@ -22,11 +22,11 @@ def main():
     args = arg_parser.parse_args()
     posting_delay = args.delay * 3600
 
-    path = os.getenv("IMAGES_PATH")
-    images = collect_photo_filenames(images_path=path)
+    images_path = os.getenv("IMAGES_PATH")
+    images = collect_photo_filenames(images_path=images_path)
     while True:
         for image in images:
-            publish_photo(f"{path}/{image}")
+            publish_photo(f"{images_path}/{image}")
             time.sleep(posting_delay)
         shuffle(images)
 

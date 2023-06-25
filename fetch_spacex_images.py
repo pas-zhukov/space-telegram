@@ -1,10 +1,16 @@
+import os
+
 import requests
 from argparse import ArgumentParser
 from img_functions import download_image
-import global_vars_env
+from dotenv import load_dotenv
+
+
+SPACEX_API_METHOD_URL = 'https://api.spacexdata.com/v5/launches'
 
 
 def main():
+    load_dotenv()
     arg_parser = ArgumentParser(
         description='This program allows to download photos from SpaceX rocket launches.'
     )
@@ -19,7 +25,8 @@ def main():
     args = arg_parser.parse_args()
     flight_id = args.launch_id
 
-    fetch_spacex_launch_photos(launch_id=flight_id)
+    images_path = os.getenv("IMAGES_PATH")
+    fetch_spacex_launch_photos(launch_id=flight_id, images_path=images_path)
 
 
 def get_last_flight_id() -> str:
@@ -30,7 +37,7 @@ def get_last_flight_id() -> str:
 
     :return: None
     """
-    spacex_response = requests.get(global_vars_env.SPACEX_API_METHOD_URL)
+    spacex_response = requests.get(SPACEX_API_METHOD_URL)
     spacex_response.raise_for_status()
     flights = spacex_response.json()
     last_flight = None
@@ -41,22 +48,23 @@ def get_last_flight_id() -> str:
     return last_flight['id']
 
 
-def fetch_spacex_launch_photos(launch_id: str):
+def fetch_spacex_launch_photos(launch_id: str, images_path: str):
     """
 
     Downloads images of a specific SpaceX launch from the SpaceX API
     and saves them to the local machine.
 
     :param launch_id:  ID of the SpaceX launch
+    :param images_path: path to a folder where images will be saved
     :return: None
     """
-    spacex_response = requests.get(f"{global_vars_env.SPACEX_API_METHOD_URL}/{launch_id}")
+    spacex_response = requests.get(f"{SPACEX_API_METHOD_URL}/{launch_id}")
     spacex_response.raise_for_status()
     flight = spacex_response.json()
     photo_links = flight['links']['flickr']['original']
     if photo_links:
         for i, link in enumerate(photo_links):
-            download_image(link, f"{global_vars_env.IMAGES_PATH}/spaceX_{i}.jpg")
+            download_image(link, f"{images_path}/spaceX_{i}.jpg")
     else:
         raise PhotosMissingError
 
