@@ -3,11 +3,10 @@ from random import shuffle
 from urllib.parse import urlparse, unquote
 from datetime import datetime
 import requests
-import global_vars_env
 
 
 def download_image(image_url: str,
-                   path: str = f'{global_vars_env.IMAGES_PATH}/image_{datetime.now()}.jpg',
+                   path: str = f'images/image_{datetime.now()}.jpg',
                    params: dict = None):
     """
 
@@ -17,7 +16,7 @@ def download_image(image_url: str,
     :param image_url: the URL of the image to be downloaded
     :param path: the path where the downloaded image will be saved
     (default is a path with the current date and time in the filename,
-    located in the IMAGES_PATH directory)
+    located in the "images/" directory)
     :param params: optional parameters to be passed in the request
     :return: None
     """
@@ -42,18 +41,19 @@ def get_file_extension(image_url: str) -> tuple[str, str]:
     return filename, extension
 
 
-def collect_photo_filenames(randomize: bool = False) -> list:
+def collect_photo_filenames(images_path: str, randomize: bool = False) -> list:
     """
 
     Collects the filenames of all the images
     present in the directory specified by the
-    'IMAGES_PATH' variable and returns them as a list
+    images_path argument and returns them as a list
 
+    :param images_path: a path to images folder
     :param randomize: whether randomize images sequence or not
-    :return: filenames of all the images present in the 'IMAGES_PATH' directory
+    :return: filenames of all the images present in the chosen directory
     """
     images = None
-    for _, _, file_names in os.walk(global_vars_env.IMAGES_PATH):
+    for _, _, file_names in os.walk(images_path):
         images = file_names
     if not images:
         raise FileNotFoundError("Your IMAGES_PATH folder must contain at least one photo!")
