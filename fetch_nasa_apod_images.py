@@ -8,11 +8,7 @@ import requests
 from argparse import ArgumentParser
 from dotenv import load_dotenv
 from img_functions import download_image
-
-load_dotenv()
-IMAGES_PATH = os.getenv("IMAGES_PATH")
-APOD_API_METHOD_URL = "https://api.nasa.gov/planetary/apod"
-NASA_API_KEY = os.getenv("NASA_API_KEY")
+import global_vars_env
 
 
 def main():
@@ -42,14 +38,14 @@ def fetch_nasa_apod(photos_count: int = 10):
     :return: None
     """
     request_params = {
-        'api_key': NASA_API_KEY,
+        'api_key': global_vars_env.NASA_API_KEY,
         'count': photos_count
     }
-    nasa_response = requests.get(APOD_API_METHOD_URL, params=request_params)
+    nasa_response = requests.get(global_vars_env.APOD_API_METHOD_URL, params=request_params)
     nasa_response.raise_for_status()
     apod_posts = nasa_response.json()
     for i, post in enumerate(apod_posts):
-        download_image(post['url'], f"{IMAGES_PATH}/nasa_apod_{i}.jpg")
+        download_image(post['url'], f"{global_vars_env.IMAGES_PATH}/nasa_apod_{i}.jpg")
 
 
 if __name__ == "__main__":

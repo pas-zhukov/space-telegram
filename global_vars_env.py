@@ -20,3 +20,4 @@ TG_CHANNEL_NAME = os.getenv("TG_CHANNEL_NAME", None)
 SPACEX_API_METHOD_URL = 'https://api.spacexdata.com/v5/launches'
 EPIC_API_METHOD_URL = "https://api.nasa.gov/EPIC/api/natural"
 EPIC_ARCHIVE_URL = 'https://api.nasa.gov/EPIC/archive/natural'
+APOD_API_METHOD_URL = "https://api.nasa.gov/planetary/apod"
