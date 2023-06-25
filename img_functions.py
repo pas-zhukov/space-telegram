@@ -62,4 +62,3 @@ def collect_photo_filenames(images_path: str, randomize: bool = False) -> list:
     if randomize:
         shuffle(images)
     return images
-

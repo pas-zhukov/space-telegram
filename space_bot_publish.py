@@ -12,11 +12,13 @@ def main():
         description='This program allows to publish image in a Telegram channel.'
     )
     images_path = os.getenv("IMAGES_PATH")
+    default_path = f"{images_path}"\
+                   f"/{random.choice(collect_photo_filenames(images_path=images_path))}"
     arg_parser.add_argument(
         '-p',
         '--image_path',
         help="Path to an image to publish. Picks random photo by default.",
-        default=f"{images_path}/{random.choice(collect_photo_filenames(images_path=images_path))}"
+        default=default_path
     )
     args = arg_parser.parse_args()
     image_path = args.image_path

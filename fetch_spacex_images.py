@@ -1,5 +1,4 @@
 import os
-
 import requests
 from argparse import ArgumentParser
 from img_functions import download_image
@@ -62,11 +61,10 @@ def fetch_spacex_launch_photos(launch_id: str, images_path: str):
     spacex_response.raise_for_status()
     flight = spacex_response.json()
     photo_links = flight['links']['flickr']['original']
-    if photo_links:
-        for i, link in enumerate(photo_links):
-            download_image(link, f"{images_path}/spaceX_{i}.jpg")
-    else:
+    if not photo_links:
         raise PhotosMissingError
+    for i, link in enumerate(photo_links):
+        download_image(link, f"{images_path}/spaceX_{i}.jpg")
 
 
 class PhotosMissingError(ValueError):

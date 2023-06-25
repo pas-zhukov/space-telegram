@@ -2,7 +2,6 @@
 
 APOD is the Astronomy Picture of the Day (NASA).
 """
-
 import os
 import requests
 from argparse import ArgumentParser
@@ -30,10 +29,14 @@ def main():
 
     nasa_api_key = os.getenv("NASA_API_KEY")
     images_path = os.getenv("images_path")
-    fetch_nasa_apod(nasa_api_key=nasa_api_key, images_path=images_path, photos_count=photos_count)
+    fetch_nasa_apod(nasa_api_key=nasa_api_key,
+                    images_path=images_path,
+                    photos_count=photos_count)
 
 
-def fetch_nasa_apod(nasa_api_key: str, images_path: str, photos_count: int = 10):
+def fetch_nasa_apod(nasa_api_key: str,
+                    images_path: str,
+                    photos_count: int = 10):
     """
 
     Downloads a specified number of Astronomy Picture of the Day (APOD) photos

@@ -31,10 +31,14 @@ def main():
 
     nasa_api_key = os.getenv("NASA_API_KEY")
     images_path = os.getenv("images_path")
-    fetch_nasa_epic(nasa_api_key=nasa_api_key, images_path=images_path, photos_count=photos_count)
+    fetch_nasa_epic(nasa_api_key=nasa_api_key,
+                    images_path=images_path,
+                    photos_count=photos_count)
 
 
-def fetch_nasa_epic(nasa_api_key: str, images_path: str, photos_count: int = 10):
+def fetch_nasa_epic(nasa_api_key: str,
+                    images_path: str,
+                    photos_count: int = 10):
     """
 
     Downloads a specified number of EPIC photos from NASA
