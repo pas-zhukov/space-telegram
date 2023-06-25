@@ -1,12 +1,14 @@
+import os
 import time
 from random import shuffle
 from argparse import ArgumentParser
 from space_bot_publish import publish_photo
 from img_functions import collect_photo_filenames
-import global_vars_env
+from dotenv import load_dotenv
 
 
 def main():
+    load_dotenv()
     arg_parser = ArgumentParser(
         description='This program allows to publish images into a Telegram channel with specific interval.'
     )
@@ -20,10 +22,11 @@ def main():
     args = arg_parser.parse_args()
     posting_delay = args.delay * 3600
 
-    images = collect_photo_filenames()
+    path = os.getenv("IMAGES_PATH")
+    images = collect_photo_filenames(images_path=path)
     while True:
         for image in images:
-            publish_photo(f"{global_vars_env.IMAGES_PATH}/{image}")
+            publish_photo(f"{path}/{image}")
             time.sleep(posting_delay)
         shuffle(images)
 
