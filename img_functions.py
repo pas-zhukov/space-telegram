@@ -1,5 +1,6 @@
 import os
 from random import shuffle
+import pathlib
 from urllib.parse import urlparse, unquote
 from datetime import datetime
 import requests
@@ -20,6 +21,7 @@ def download_image(image_url: str,
     :param params: optional parameters to be passed in the request
     :return: None
     """
+    pathlib.Path(f"{path}/").mkdir(parents=True, exist_ok=True)
     response = requests.get(image_url, params=params)
     response.raise_for_status()
     binary_image = response.content
