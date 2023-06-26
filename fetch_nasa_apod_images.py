@@ -28,7 +28,7 @@ def main():
     photos_count = args.count
 
     nasa_api_key = os.getenv("NASA_API_KEY")
-    images_path = os.getenv("images_path")
+    images_path = os.getenv("IMAGES_PATH")
     fetch_nasa_apod(nasa_api_key=nasa_api_key,
                     images_path=images_path,
                     photos_count=photos_count)
